@@ -1,0 +1,15 @@
+{
+    "name": "tomjn/composerpress",
+    "description": "Takes stock of a local install and sends data off",
+    "license": "GPL 2",
+    "authors": [
+        {
+            "name": "Tom J Nowell",
+            "email": "contact@tomjn.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    }
+}
