@@ -1,7 +1,8 @@
 {
-    "name": "tomjn/composerpress",
-    "description": "Takes stock of a local install and sends data off",
+    "name": "Tomjn/ComposerPress",
+    "description": "Takes stock of a local install and generates a composer.json",
     "license": "GPL 2",
+    "type": "wordpress-plugin",
     "authors": [
         {
             "name": "Tom J Nowell",
@@ -10,6 +11,13 @@
     ],
     "minimum-stability": "dev",
     "require": {
-
+        "composer/installers"          : "~1.0",
+        "php"                          : ">=5.3",
+        "pimple/pimple"                : "~1.0"
+    },
+    "autoload"    : {
+        "classmap": [
+            "php/"
+        ]
     }
 }
