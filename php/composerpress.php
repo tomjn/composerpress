@@ -3,8 +3,10 @@
 namespace Tomjn\ComposerPress;
 
 class ComposerPress extends \Pimple {
-	public function __construct() {
-		//
+
+	private $model = null;
+	public function __construct( Model $model ) {
+		$this->model = $model;
 	}
 
 	public function run() {
@@ -16,76 +18,56 @@ class ComposerPress extends \Pimple {
 	}
 
 	function options_page() {
-
+		$this->fill_model();
 		echo '<div class="wrap">';
 		echo '<h2>Composer.json</h2>';
 		echo '<pre>';
-		echo $this->get_composer_json();
+		echo $this->model->to_json();
 		echo '</pre>';
 		echo '</div>';
 
 	}
 
-	public function get_composer_json() {
+	public function fill_model() {
 		$plugins = get_plugins();
-		$data = array();
-		$data['rarst/wordpress'] = '>='.get_bloginfo( 'version' );
-		$data['php'] = '>=5.2.4';
 
-		$repositories = array();
-		$repositories[] = array(
-			'type' => 'vcs',
-			'url' => 'http://rarst.net'
-		);
+		$this->model->required( 'rarst/wordpress', '>='.get_bloginfo( 'version' ) );
+		$this->model->required( 'php', '>=5.2.4' );
+
+		$this->model->set_name( 'wpsite/'.sanitize_title( get_bloginfo( 'name' ) ) );
+		$this->model->set_homepage( home_url() );
+		$this->model->set_description( get_bloginfo( 'description' ) );
+		$this->model->set_version( get_bloginfo( 'version' ) );
+
+		$this->model->add_repository( 'vcs', 'http://rarst.net' );
+
+		$this->model->add_extra( 'installer-paths', array( 'wp' => array( 'rarst/wordpress' ) ) );
 
 		foreach ( $plugins as $key => $plugin ) {
 			$path = plugin_dir_path( $key );
 			$fullpath = WP_CONTENT_DIR.'/plugins/'.$path;
-			$req = array();
 			if ( file_exists( $fullpath.'.svn/' ) ) {
-				$req = $this->handle_plugin_svn_require( $plugin, $fullpath );
+				$this->handle_plugin_svn_require( $plugin, $fullpath );
 			} else if ( file_exists( $fullpath.'.git/' ) ) {
-				$req = $this->handle_plugin_git_require( $plugin, $fullpath );
+				$this->handle_plugin_git_require( $plugin, $fullpath );
 			} else {
-				$req = $this->handle_plugin_fallback_require( $plugin, $fullpath );
+				$this->handle_plugin_fallback_require( $plugin, $fullpath );
 			}
-			if ( !empty( $req ) ) {
-				$data[ $req['key'] ] = $req['version'];
-			}
-			//wp_die( print_r( $fullpath, true ) );
 		}
-		$manifest = array();
-		$manifest['name'] = 'wpsite/'.sanitize_title( get_bloginfo( 'name' ) );
-		$manifest['description'] = get_bloginfo( 'description' );
-		$manifest['homepage'] = home_url();
-		$manifest['version'] = get_bloginfo( 'version' );
-		$manifest['repositories'] = $repositories;
-		$manifest['extra'] = array(
-			'installer-paths' => array(
-				'./' => array( 'rarst/wordpress' )
-			)
-		);
-		$manifest['require'] = $data;
-		$json = json_encode( $manifest, ( JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) );
-		return $json;
 	}
 
 	public function handle_plugin_git_require( $plugin ) {
-		$dependency = array();
-		return $dependency;
+		return;
 	}
 	public function handle_plugin_svn_require( $plugin ) {
-		$dependency = array();
-		return $dependency;
+		return;
 	}
 	public function handle_plugin_fallback_require( $plugin ) {
 		$key = 'wpackagist/'.sanitize_title( $plugin['Name'] );
 		$version = $plugin['Version'];
 		if ( !empty( $version ) ) {
-			$dependency = array( 'key' => $key, 'version' => $version );
-			return $dependency;
+			$this->model->required( $key, $version );
 		}
-		return array();
 	}
 }
 
