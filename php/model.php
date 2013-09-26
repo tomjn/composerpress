@@ -45,6 +45,13 @@ class Model {
 		);
 	}
 
+	public function add_package_repository( $package ) {
+		$this->repos[] = array(
+			'type' => 'package',
+			'package' => $package
+		);
+	}
+
 	public function add_extra( $name, $data ) {
 		$this->extra[$name] = $data;
 	}

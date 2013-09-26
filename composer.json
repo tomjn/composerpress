@@ -11,9 +11,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "composer/installers"          : "~1.0",
-        "php"                          : ">=5.3",
-        "pimple/pimple"                : "~1.0"
+        "composer/installers": "~1.0",
+        "php": ">=5.3",
+        "pimple/pimple": "~1.0",
+        "gitonomy/gitlib": "dev-master"
     },
     "autoload"    : {
         "classmap": [

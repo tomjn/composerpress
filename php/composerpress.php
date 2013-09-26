@@ -2,6 +2,8 @@
 
 namespace Tomjn\ComposerPress;
 
+use Gitonomy\Git\Repository;
+
 class ComposerPress extends \Pimple {
 
 	private $model = null;
@@ -25,7 +27,6 @@ class ComposerPress extends \Pimple {
 		echo $this->model->to_json();
 		echo '</pre>';
 		echo '</div>';
-
 	}
 
 	public function fill_model() {
@@ -56,12 +57,38 @@ class ComposerPress extends \Pimple {
 		}
 	}
 
-	public function handle_plugin_git_require( $plugin ) {
+	public function handle_plugin_git_require( $plugin, $fullpath ) {
+		// process our git repository
+		$repository = new Repository( $fullpath );
+
+		// get the repository URL
+		$remote_url = $repository->run( 'config', array(
+			'--get' => 'remote.origin.url'
+		) );
+		$remote_url = trim( $remote_url );
+		$reponame = 'composerpress/'.sanitize_title( $plugin['Name'] );
+		$package = array(
+			'name' => $reponame,
+			'version' => '1.0',
+			'type' => 'wordpress-plugin',
+			'source' => array(
+				'url' => $remote_url,
+				'type' => 'git'
+			)
+		);
+
+		$this->model->add_package_repository( $package );
+		$this->model->required( $reponame, '1.0' );
+
+		// @TODO: Handle repos that already have a composer.json
+
 		return;
 	}
+
 	public function handle_plugin_svn_require( $plugin ) {
 		return;
 	}
+
 	public function handle_plugin_fallback_require( $plugin ) {
 		$key = 'wpackagist/'.sanitize_title( $plugin['Name'] );
 		$version = $plugin['Version'];
