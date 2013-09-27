@@ -40,6 +40,7 @@ class ComposerPress extends \Pimple {
 		$this->model->set_description( get_bloginfo( 'description' ) );
 		$this->model->set_version( get_bloginfo( 'version' ) );
 
+		$this->model->add_repository( 'composer', 'http://wpackagist.org' );
 		$this->model->add_repository( 'vcs', 'http://rarst.net' );
 
 		$this->model->add_extra( 'installer-paths', array( 'wp' => array( 'rarst/wordpress' ) ) );
@@ -59,13 +60,14 @@ class ComposerPress extends \Pimple {
 
 	public function handle_plugin_git_require( $plugin, $fullpath ) {
 		// process our git repository
+		$p = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $plugin );
 		$repository = new Repository( $fullpath );
 
 		// get the repository URL
 		$remote_url = $repository->run( 'config', array(
 			'--get' => 'remote.origin.url'
 		) );
-		$remote_url = trim( $remote_url );
+		$remote_url = $p->get_url();
 		$reponame = 'composerpress/'.sanitize_title( $plugin['Name'] );
 		$package = array(
 			'name' => $reponame,
@@ -95,6 +97,10 @@ class ComposerPress extends \Pimple {
 		if ( !empty( $version ) ) {
 			$this->model->required( $key, $version );
 		}
+	}
+
+	public function get_composer_json( $fullpath ) {
+		//
 	}
 }
 
