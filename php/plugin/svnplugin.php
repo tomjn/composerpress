@@ -7,6 +7,10 @@ class SVNPlugin extends Tomjn\ComposerPress\Plugin\WordpressPlugin {
 		//
 	}
 
+	public function get_name() {
+		return '';
+	}
+
 	public function get_vcs_type() {
 		return 'svn';
 	}
