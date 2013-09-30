@@ -21,7 +21,8 @@ class ComposerPress extends \Pimple {
 		$this->fill_model();
 		echo '<div class="wrap">';
 		echo '<h2>Composer.json</h2>';
-		echo '<pre>';
+		echo '<style>.composerpress_json { padding:1em; background:#fff; border: 1px solid #ddd; }</style>';
+		echo '<pre class="composerpress_json">';
 		echo $this->model->to_json();
 		echo '</pre>';
 		echo '</div>';
