@@ -45,7 +45,9 @@ class ComposerPress extends \Pimple {
 			$path = plugin_dir_path( $key );
 			$fullpath = WP_CONTENT_DIR.'/plugins/'.$path;
 			$plugin = null;
-			if ( file_exists( $fullpath.'.git/' ) ) {
+			if ( file_exists( $fullpath.'.hg/' ) ) {
+				$plugin = new \Tomjn\ComposerPress\Plugin\HGPlugin( $fullpath, $plugin_data );
+			} else if ( file_exists( $fullpath.'.git/' ) ) {
 				$plugin = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $plugin_data );
 			} else if ( file_exists( $fullpath.'.svn/' ) ) {
 				$plugin = new \Tomjn\ComposerPress\Plugin\SVNPlugin( $fullpath, $plugin_data );
