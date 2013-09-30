@@ -30,8 +30,8 @@ class ComposerPress extends \Pimple {
 	public function fill_model() {
 		$plugins = get_plugins();
 
-		$this->model->required( 'rarst/wordpress', '>='.get_bloginfo( 'version' ) );
-		$this->model->required( 'php', '>=5.2.4' );
+		$this->model->required( 'johnpbloch/wordpress', '>='.get_bloginfo( 'version' ) );
+		$this->model->required( 'php', '>=5.3.2' );
 
 		$this->model->set_name( 'wpsite/'.sanitize_title( get_bloginfo( 'name' ) ) );
 		$this->model->set_homepage( home_url() );
@@ -39,7 +39,6 @@ class ComposerPress extends \Pimple {
 		$this->model->set_version( get_bloginfo( 'version' ) );
 
 		$this->model->add_repository( 'composer', 'http://wpackagist.org' );
-		$this->model->add_repository( 'vcs', 'http://rarst.net' );
 
 		$this->model->add_extra( 'installer-paths', array( 'wp' => array( 'rarst/wordpress' ) ) );
 
