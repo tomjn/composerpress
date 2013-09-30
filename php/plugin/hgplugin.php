@@ -38,14 +38,8 @@ class HGPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 
 	public function get_url() {
 		$hgrcpath = trailingslashit( $this->path ).'.hg/hgrc';
-		$hgrc = file_get_contents( $hgrcpath );
-		$lines = explode( "\n", $hgrc );
-		$remote_url = '';
-		foreach ( $lines as $line ) {
-			if ( strpos( $line, 'default = ' ) === 0 ) {
-				$remote_url = substr( $line, 9 );
-			}
-		}
+		$hgrc = parse_ini_file( $hgrcpath );
+		$remote_url = $hgrc['default'];
 
 		$remote_url = trim( $remote_url );
 		return $remote_url;
