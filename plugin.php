@@ -23,7 +23,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace Tomjn\ComposerPress;
+use  Tomjn\ComposerPress\ComposerPress;
+use  Tomjn\ComposerPress\Model;
 
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';

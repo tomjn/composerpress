@@ -54,7 +54,11 @@ class ComposerPress {
 			} else {
 				$plugin = new \Tomjn\ComposerPress\Plugin\WPackagistPlugin( $fullpath, $plugin_data );
 			}
-			$this->model->add_plugin( $plugin );
+			if ( $plugin != null ) {
+				$this->model->add_plugin( $plugin );
+			} else {
+				wp_die( 'ohnoes' );
+			}
 		}
 	}
 }

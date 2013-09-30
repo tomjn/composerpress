@@ -60,7 +60,7 @@ class Model {
 		$this->required[ $package ] = $version;
 	}
 
-	public function add_plugin( WordpressPlugin $plugin ) {
+	public function add_plugin( \Tomjn\ComposerPress\Plugin\PluginInterface $plugin ) {
 		$remote_url = $plugin->get_url();
 		$reponame = $plugin->get_name();
 		$version = $plugin->get_version();

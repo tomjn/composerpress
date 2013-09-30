@@ -2,7 +2,7 @@
 
 namespace Tomjn\ComposerPress\Plugin;
 
-abstract class WordpressPlugin {
+abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInterface {
 	protected $path;
 	protected $plugin_data;
 
