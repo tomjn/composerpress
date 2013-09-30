@@ -40,36 +40,18 @@ class ComposerPress extends \Pimple {
 
 		$this->model->add_repository( 'composer', 'http://wpackagist.org' );
 
-		$this->model->add_extra( 'installer-paths', array( 'wp' => array( 'rarst/wordpress' ) ) );
-
-		foreach ( $plugins as $key => $plugin ) {
+		foreach ( $plugins as $key => $plugin_data ) {
 			$path = plugin_dir_path( $key );
 			$fullpath = WP_CONTENT_DIR.'/plugins/'.$path;
+			$plugin = null;
 			if ( file_exists( $fullpath.'.git/' ) ) {
-				$this->handle_plugin_git_require( $plugin, $fullpath );
+				$plugin = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $plugin_data );
 			} else if ( file_exists( $fullpath.'.svn/' ) ) {
-				$this->handle_plugin_svn_require( $plugin, $fullpath );
+				$plugin = new \Tomjn\ComposerPress\Plugin\SVNPlugin( $fullpath, $plugin_data );
 			} else {
-				$this->handle_plugin_fallback_require( $plugin, $fullpath );
+				$plugin = new \Tomjn\ComposerPress\Plugin\WPackagistPlugin( $fullpath, $plugin_data );
 			}
-		}
-	}
-
-	public function handle_plugin_git_require( $plugin, $fullpath ) {
-		$gitplugin = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $plugin );
-		$this->handle_plugin( $gitplugin );
-	}
-
-	public function handle_plugin_svn_require( $plugin, $fullpath ) {
-		$svnplugin = new \Tomjn\ComposerPress\Plugin\SVNPlugin( $fullpath, $plugin );
-		$this->handle_plugin( $svnplugin );
-	}
-
-	public function handle_plugin_fallback_require( $plugin, $fullpath ) {
-		$packagist = new \Tomjn\ComposerPress\Plugin\WPackagistPlugin( $fullpath, $plugin );
-		$version = $plugin['Version'];
-		if ( !empty( $version ) ) {
-			$this->model->required( $packagist->get_name(), $version );
+			$this->handle_plugin( $plugin );
 		}
 	}
 
@@ -79,20 +61,22 @@ class ComposerPress extends \Pimple {
 		$version = $plugin->get_version();
 		$vcstype = $plugin->get_vcs_type();
 
-		if ( $plugin->has_composer() ) {
-			$this->model->add_repository( $vcstype, $remote_url );
-		} else {
-			$package = array(
-				'name' => $reponame,
-				'version' => $version,
-				'type' => 'wordpress-plugin',
-				'source' => array(
-					'url' => $remote_url,
-					'type' => $vcstype
-				)
-			);
+		if ( !$plugin->is_packagist() ) {
+			if ( $plugin->has_composer() ) {
+				$this->model->add_repository( $vcstype, $remote_url );
+			} else {
+				$package = array(
+					'name' => $reponame,
+					'version' => $version,
+					'type' => 'wordpress-plugin',
+					'source' => array(
+						'url' => $remote_url,
+						'type' => $vcstype
+					)
+				);
 
-			$this->model->add_package_repository( $package );
+				$this->model->add_package_repository( $package );
+			}
 		}
 		$this->model->required( $reponame, $version );
 	}

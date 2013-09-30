@@ -66,9 +66,15 @@ class Model {
 		$manifest['description'] = $this->description;
 		$manifest['homepage'] = $this->homepage;
 		$manifest['version'] = $this->version;
-		$manifest['repositories'] = $this->repos;
-		$manifest['extra'] = $this->extra;
-		$manifest['require'] = $this->required;
+		if ( !empty( $this->repos ) ) {
+			$manifest['repositories'] = $this->repos;
+		}
+		if ( !empty( $this->extra ) ) {
+			$manifest['extra'] = $this->extra;
+		}
+		if ( !empty( $this->required ) ) {
+			$manifest['require'] = $this->required;
+		}
 		$json = json_encode( $manifest, ( JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) );
 		return $json;
 	}
