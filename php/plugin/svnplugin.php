@@ -4,11 +4,15 @@ namespace Tomjn\ComposerPress\Plugin;
 
 class SVNPlugin extends Tomjn\ComposerPress\Plugin\WordpressPlugin {
 	public function __construct( $path, $plugin_data ) {
-		//
+		parent::__construct( $path, $plugin_data );
 	}
 
 	public function get_name() {
 		return '';
+	}
+
+	public function get_version() {
+		return $this->plugin_data['Version'];
 	}
 
 	public function get_vcs_type() {

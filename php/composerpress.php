@@ -62,9 +62,10 @@ class ComposerPress extends \Pimple {
 		// get the repository URL
 		$remote_url = $gitplugin->get_url();
 		$reponame = $gitplugin->get_name();
+		$version = $gitplugin->get_version();
 		$package = array(
 			'name' => $reponame,
-			'version' => '1.0',
+			'version' => $version,
 			'type' => 'wordpress-plugin',
 			'source' => array(
 				'url' => $remote_url,
@@ -73,7 +74,7 @@ class ComposerPress extends \Pimple {
 		);
 
 		$this->model->add_package_repository( $package );
-		$this->model->required( $reponame, '1.0' );
+		$this->model->required( $reponame, $version );
 
 		return;
 	}
