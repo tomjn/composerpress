@@ -45,10 +45,10 @@ class ComposerPress extends \Pimple {
 		foreach ( $plugins as $key => $plugin ) {
 			$path = plugin_dir_path( $key );
 			$fullpath = WP_CONTENT_DIR.'/plugins/'.$path;
-			if ( file_exists( $fullpath.'.svn/' ) ) {
-				$this->handle_plugin_svn_require( $plugin, $fullpath );
-			} else if ( file_exists( $fullpath.'.git/' ) ) {
+			if ( file_exists( $fullpath.'.git/' ) ) {
 				$this->handle_plugin_git_require( $plugin, $fullpath );
+			} else if ( file_exists( $fullpath.'.svn/' ) ) {
+				$this->handle_plugin_svn_require( $plugin, $fullpath );
 			} else {
 				$this->handle_plugin_fallback_require( $plugin, $fullpath );
 			}
@@ -56,31 +56,13 @@ class ComposerPress extends \Pimple {
 	}
 
 	public function handle_plugin_git_require( $plugin, $fullpath ) {
-		// process our git repository
 		$gitplugin = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $plugin );
-
-		// get the repository URL
-		$remote_url = $gitplugin->get_url();
-		$reponame = $gitplugin->get_name();
-		$version = $gitplugin->get_version();
-		$package = array(
-			'name' => $reponame,
-			'version' => $version,
-			'type' => 'wordpress-plugin',
-			'source' => array(
-				'url' => $remote_url,
-				'type' => 'git'
-			)
-		);
-
-		$this->model->add_package_repository( $package );
-		$this->model->required( $reponame, $version );
-
-		return;
+		$this->handle_plugin( $gitplugin );
 	}
 
-	public function handle_plugin_svn_require( $plugin ) {
-		return;
+	public function handle_plugin_svn_require( $plugin, $fullpath ) {
+		$svnplugin = new \Tomjn\ComposerPress\Plugin\SVNPlugin( $fullpath, $plugin );
+		$this->handle_plugin( $svnplugin );
 	}
 
 	public function handle_plugin_fallback_require( $plugin, $fullpath ) {
@@ -91,9 +73,31 @@ class ComposerPress extends \Pimple {
 		}
 	}
 
-	public function get_composer_json( $fullpath ) {
-		//
+	public function handle_plugin( $plugin ) {
+		$remote_url = $plugin->get_url();
+		$reponame = $plugin->get_name();
+		$version = $plugin->get_version();
+		$vcstype = $plugin->get_vcs_type();
+
+		if ( $plugin->has_composer() ) {
+			$this->model->add_repository( $vcstype, $remote_url );
+		} else {
+			$package = array(
+				'name' => $reponame,
+				'version' => $version,
+				'type' => 'wordpress-plugin',
+				'source' => array(
+					'url' => $remote_url,
+					'type' => $vcstype
+				)
+			);
+
+			$this->model->add_package_repository( $package );
+		}
+		$this->model->required( $reponame, $version );
 	}
 }
+
+
 
 
