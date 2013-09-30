@@ -60,6 +60,32 @@ class Model {
 		$this->required[ $package ] = $version;
 	}
 
+	public function add_plugin( WordpressPlugin $plugin ) {
+		$remote_url = $plugin->get_url();
+		$reponame = $plugin->get_name();
+		$version = $plugin->get_version();
+		$vcstype = $plugin->get_vcs_type();
+
+		if ( !$plugin->is_packagist() ) {
+			if ( $plugin->has_composer() ) {
+				$this->add_repository( $vcstype, $remote_url );
+			} else {
+				$package = array(
+					'name' => $reponame,
+					'version' => $version,
+					'type' => 'wordpress-plugin',
+					'source' => array(
+						'url' => $remote_url,
+						'type' => $vcstype
+					)
+				);
+
+				$this->add_package_repository( $package );
+			}
+		}
+		$this->required( $reponame, $version );
+	}
+
 	public function to_json() {
 		$manifest = array();
 		$manifest['name'] = $this->name;

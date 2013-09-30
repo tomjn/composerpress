@@ -2,7 +2,7 @@
 
 namespace Tomjn\ComposerPress;
 
-class ComposerPress extends \Pimple {
+class ComposerPress {
 
 	private $model = null;
 	public function __construct( Model $model ) {
@@ -54,34 +54,8 @@ class ComposerPress extends \Pimple {
 			} else {
 				$plugin = new \Tomjn\ComposerPress\Plugin\WPackagistPlugin( $fullpath, $plugin_data );
 			}
-			$this->handle_plugin( $plugin );
+			$this->model->add_plugin( $plugin );
 		}
-	}
-
-	public function handle_plugin( $plugin ) {
-		$remote_url = $plugin->get_url();
-		$reponame = $plugin->get_name();
-		$version = $plugin->get_version();
-		$vcstype = $plugin->get_vcs_type();
-
-		if ( !$plugin->is_packagist() ) {
-			if ( $plugin->has_composer() ) {
-				$this->model->add_repository( $vcstype, $remote_url );
-			} else {
-				$package = array(
-					'name' => $reponame,
-					'version' => $version,
-					'type' => 'wordpress-plugin',
-					'source' => array(
-						'url' => $remote_url,
-						'type' => $vcstype
-					)
-				);
-
-				$this->model->add_package_repository( $package );
-			}
-		}
-		$this->model->required( $reponame, $version );
 	}
 }
 
