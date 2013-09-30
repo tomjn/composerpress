@@ -13,6 +13,7 @@
     "require": {
         "composer/installers": "~1.0",
         "php": ">=5.3",
+        "ext-pdo": "*",
         "pimple/pimple": "~1.0",
         "gitonomy/gitlib": "dev-master"
     },
