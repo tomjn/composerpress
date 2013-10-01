@@ -59,8 +59,6 @@ class ComposerPress {
 			}
 			if ( $plugin != null ) {
 				$this->model->add_plugin( $plugin );
-			} else {
-				wp_die( 'ohnoes' );
 			}
 		}
 	}
