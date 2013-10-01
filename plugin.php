@@ -23,8 +23,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+if ( !is_admin() ) {
+	return;
+}
 use  Tomjn\ComposerPress\ComposerPress;
 use  Tomjn\ComposerPress\Model;
+use  Tomjn\ComposerPress\ToolPage;
 
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
@@ -38,4 +42,5 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
 $model = new Model();
 $composerplugin = new ComposerPress( $model );
+$toolpage = new ToolPage( $composerplugin, $model );
 $composerplugin->run();
