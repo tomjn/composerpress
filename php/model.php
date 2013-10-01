@@ -66,6 +66,8 @@ class Model {
 		$version = $plugin->get_version();
 		if ( !empty( $version ) ) {
 			$version = '>='.$version;
+		} else {
+			$version = 'dev-master';
 		}
 		$vcstype = $plugin->get_vcs_type();
 
