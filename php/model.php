@@ -63,7 +63,7 @@ class Model {
 	public function add_plugin( \Tomjn\ComposerPress\Plugin\PluginInterface $plugin ) {
 		$remote_url = $plugin->get_url();
 		$reponame = $plugin->get_name();
-		$version = $plugin->get_version();
+		$version = '>='.$plugin->get_version();
 		$vcstype = $plugin->get_vcs_type();
 
 		if ( !$plugin->is_packagist() ) {
