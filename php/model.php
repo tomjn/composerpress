@@ -94,8 +94,12 @@ class Model {
 	public function to_json() {
 		$manifest = array();
 		$manifest['name'] = $this->name;
-		$manifest['description'] = $this->description;
-		$manifest['homepage'] = $this->homepage;
+		if ( !empty( $this->description ) ) {
+			$manifest['description'] = $this->description;
+		}
+		if ( !empty( $this->homepage ) ) {
+			$manifest['homepage'] = $this->homepage;
+		}
 		$manifest['version'] = $this->version;
 		if ( !empty( $this->repos ) ) {
 			$manifest['repositories'] = $this->repos;

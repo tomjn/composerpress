@@ -37,9 +37,7 @@ class ComposerPress {
 		$this->model->set_name( 'wpsite/'.sanitize_title( get_bloginfo( 'name' ) ) );
 		$this->model->set_homepage( home_url() );
 		$description = get_bloginfo( 'description' );
-		if ( !empty( $description ) ) {
-			$this->model->set_description( $description );
-		}
+		$this->model->set_description( $description );
 		$this->model->set_version( get_bloginfo( 'version' ) );
 
 		$this->model->add_repository( 'composer', 'http://wpackagist.org' );
