@@ -70,9 +70,7 @@ class Model {
 		$remote_url = $plugin->get_url();
 		$reponame = $plugin->get_name();
 		$version = $plugin->get_version();
-		if ( !empty( $version ) ) {
-			$version = '>='.$version;
-		} else {
+		if ( empty( $version ) ) {
 			$version = 'dev-master';
 		}
 		$vcstype = $plugin->get_vcs_type();
@@ -80,6 +78,10 @@ class Model {
 		if ( !$plugin->is_packagist() ) {
 			if ( $plugin->has_composer() ) {
 				$this->add_repository( $vcstype, $remote_url );
+				if ( !empty( $version ) ) {
+					$version = '>='.$version;
+				}
+				$this->required( $reponame, $version );
 			} else {
 				$package = array(
 					'name' => $reponame,
@@ -87,14 +89,17 @@ class Model {
 					'type' => 'wordpress-plugin',
 					'source' => array(
 						'url' => $remote_url,
-						'type' => $vcstype
+						'type' => $vcstype,
+						'reference' => ''
 					)
 				);
 
 				$this->add_package_repository( $package );
+				$this->required( $reponame, 'dev-master' );
 			}
+		} else {
+			$this->required( $reponame, $version );
 		}
-		$this->required( $reponame, $version );
 	}
 
 	public function to_json() {
