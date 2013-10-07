@@ -11,6 +11,7 @@ class Model {
 	public $version;
 	public $name;
 	public $extra;
+	public $license;
 
 	public function __construct() {
 		$this->required = array();
@@ -20,6 +21,7 @@ class Model {
 		$this->description = '';
 		$this->version = '';
 		$this->name = '';
+		$this->license = '';
 	}
 
 	public function set_homepage( $homepage ) {
@@ -36,6 +38,10 @@ class Model {
 
 	public function set_description( $description ) {
 		$this->description = $description;
+	}
+
+	public function set_license( $license ) {
+		$this->license = $license;
 	}
 
 	public function add_repository( $type, $url ) {
@@ -96,6 +102,9 @@ class Model {
 		$manifest['name'] = $this->name;
 		if ( !empty( $this->description ) ) {
 			$manifest['description'] = $this->description;
+		}
+		if ( !empty( $this->description ) ) {
+			$manifest['license'] = $this->license;
 		}
 		if ( !empty( $this->homepage ) ) {
 			$manifest['homepage'] = $this->homepage;
