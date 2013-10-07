@@ -23,6 +23,7 @@ class ComposerPress {
 		$this->model->set_homepage( home_url() );
 		$description = get_bloginfo( 'description' );
 		$this->model->set_description( $description );
+		$this->model->set_license( 'GPL-2.0+' );
 		$this->model->set_version( get_bloginfo( 'version' ) );
 
 		$this->model->add_repository( 'composer', 'http://wpackagist.org' );
