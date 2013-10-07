@@ -1,7 +1,7 @@
 {
     "name": "tomjn/composerpress",
     "description": "Takes stock of a local install and generates a composer.json",
-    "license": "GPL 2",
+    "license": "GPL-2.0+",
     "type": "wordpress-plugin",
     "authors": [
         {
