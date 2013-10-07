@@ -14,4 +14,5 @@ interface PluginInterface {
 
 	public function get_vcs_type();
 	public function get_url();
+	public function get_reference();
 }

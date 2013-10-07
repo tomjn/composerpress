@@ -3,8 +3,8 @@
 namespace Tomjn\ComposerPress\Plugin;
 
 class SVNPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
-	public function __construct( $path, $plugin_data ) {
-		parent::__construct( $path, $plugin_data );
+	public function __construct( $path, $filepath, $plugin_data ) {
+		parent::__construct( $path, $filepath, $plugin_data );
 	}
 
 	public function get_name() {
@@ -39,14 +39,34 @@ class SVNPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 
 	public function get_url() {
 		$dbpath = trailingslashit( $this->path ).'.svn/wc.db';
+
+		$root = '';
 		//$database = \sqlite_open( $dbpath, 0666, $error );
 		$database = new \PDO( 'sqlite:'.$dbpath );
-		 $sql = 'SELECT root FROM REPOSITORY ORDER BY id';
+		$sql = 'SELECT root FROM REPOSITORY ORDER BY id';
 		foreach ( $database->query( $sql ) as $row ) {
-			return $row['root'];
+			$root = trailingslashit( $row['root'] );
+			break;
 		}
 
 		//$info = \svn_info( $this->path );
-		return '';
+		return $root;
+	}
+
+	public function get_reference() {
+		$dbpath = trailingslashit( $this->path ).'.svn/wc.db';
+
+		//$database = \sqlite_open( $dbpath, 0666, $error );
+		$database = new \PDO( 'sqlite:'.$dbpath );
+
+		$key = substr( $this->filepath, strlen( $this->path ) );
+
+		$sql = 'SELECT * FROM NODES WHERE local_relpath = "'.$key.'" ORDER BY wc_id';
+		foreach ( $database->query( $sql ) as $row ) {
+			$rel = $row['repos_path'];
+		}
+
+		//$info = \svn_info( $this->path );
+		return $rel;
 	}
 }

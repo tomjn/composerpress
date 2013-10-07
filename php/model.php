@@ -68,6 +68,7 @@ class Model {
 
 	public function add_plugin( \Tomjn\ComposerPress\Plugin\PluginInterface $plugin ) {
 		$remote_url = $plugin->get_url();
+		$reference = $plugin->get_reference();
 		$reponame = $plugin->get_name();
 		$version = $plugin->get_version();
 		if ( empty( $version ) ) {
@@ -90,7 +91,7 @@ class Model {
 					'source' => array(
 						'url' => $remote_url,
 						'type' => $vcstype,
-						'reference' => ''
+						'reference' => $reference
 					)
 				);
 

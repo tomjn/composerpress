@@ -4,10 +4,12 @@ namespace Tomjn\ComposerPress\Plugin;
 
 abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInterface {
 	protected $path;
+	protected $filepath;
 	protected $plugin_data;
 
-	public function __construct( $path, $plugin_data ){
+	public function __construct( $path, $filepath, $plugin_data ){
 		$this->path = $path;
+		$this->filepath = $filepath;
 		$this->plugin_data = $plugin_data;
 	}
 
@@ -31,4 +33,7 @@ abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInte
 
 	abstract public function get_vcs_type();
 	abstract public function get_url();
+	public function get_reference(){
+		return '';
+	}
 }

@@ -31,15 +31,16 @@ class ComposerPress {
 		foreach ( $plugins as $key => $plugin_data ) {
 			$path = plugin_dir_path( $key );
 			$fullpath = WP_CONTENT_DIR.'/plugins/'.$path;
+			$filepath = WP_CONTENT_DIR.'/plugins/'.$key;
 			$plugin = null;
 			if ( file_exists( $fullpath.'.hg/' ) ) {
-				$plugin = new \Tomjn\ComposerPress\Plugin\HGPlugin( $fullpath, $plugin_data );
+				$plugin = new \Tomjn\ComposerPress\Plugin\HGPlugin( $fullpath, $filepath, $plugin_data );
 			} else if ( file_exists( $fullpath.'.git/' ) ) {
-				$plugin = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $plugin_data );
+				$plugin = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $filepath, $plugin_data );
 			} else if ( file_exists( $fullpath.'.svn/' ) ) {
-				$plugin = new \Tomjn\ComposerPress\Plugin\SVNPlugin( $fullpath, $plugin_data );
+				$plugin = new \Tomjn\ComposerPress\Plugin\SVNPlugin( $fullpath, $filepath, $plugin_data );
 			} else {
-				$plugin = new \Tomjn\ComposerPress\Plugin\WPackagistPlugin( $fullpath, $plugin_data );
+				$plugin = new \Tomjn\ComposerPress\Plugin\WPackagistPlugin( $fullpath, $filepath, $plugin_data );
 			}
 			if ( $plugin != null ) {
 				$this->model->add_plugin( $plugin );

@@ -5,8 +5,8 @@ namespace Tomjn\ComposerPress\Plugin;
 class HGPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 	private $repository;
 
-	public function __construct( $path, $plugin_data ) {
-		parent::__construct( $path, $plugin_data );
+	public function __construct( $path, $filepath, $plugin_data ) {
+		parent::__construct( $path, $filepath, $plugin_data );
 	}
 
 	public function get_name() {

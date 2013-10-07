@@ -4,8 +4,8 @@ namespace Tomjn\ComposerPress\Plugin;
 
 class WPackagistPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 
-	public function __construct( $path, $plugin_data ) {
-		parent::__construct( $path, $plugin_data );
+	public function __construct( $path, $filepath, $plugin_data ) {
+		parent::__construct( $path, $filepath, $plugin_data );
 	}
 
 	public function get_name() {
