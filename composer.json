@@ -1,5 +1,5 @@
 {
-    "name": "tomjn/ComposerPress",
+    "name": "tomjn/composerpress",
     "description": "Takes stock of a local install and generates a composer.json",
     "license": "GPL 2",
     "type": "wordpress-plugin",
@@ -14,7 +14,8 @@
         "composer/installers": "~1.0",
         "php": ">=5.3",
         "ext-pdo": "*",
-        "gitonomy/gitlib": "dev-master"
+        "gitonomy/gitlib": "dev-master",
+        "symfony/console": "2.3.5"
     },
     "autoload"    : {
         "classmap": [
