@@ -108,7 +108,7 @@ class Model {
 		if ( !empty( $this->description ) ) {
 			$manifest['description'] = $this->description;
 		}
-		if ( !empty( $this->description ) ) {
+		if ( !empty( $this->license ) ) {
 			$manifest['license'] = $this->license;
 		}
 		if ( !empty( $this->homepage ) ) {
