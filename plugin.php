@@ -32,12 +32,6 @@ use  Tomjn\ComposerPress\ToolPage;
 
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
-} else {
-	if ( function_exists( 'wp_die' ) ) {
-		wp_die( 'This plugin install is incomplete, run <code>composer install</code> on the <code>wp-content/plugins/'.basename( __DIR__ ).'</code> plugin folder to install dependencies.</p><p>For instructions on installing composer:</p><ul><li><a href="http://getcomposer.org/doc/00-intro.md#installation-nix"> see here for *nix</a></li><li><a href="http://getcomposer.org/doc/00-intro.md#installation-windows">here for Windows</a></li></ul>' );
-	} else {
-		error_log( 'composer install command needs to be ran on this plugin' );
-	}
 }
 
 $model = new Model();
