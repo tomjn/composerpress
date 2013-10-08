@@ -15,6 +15,7 @@ abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInte
 
 	abstract public function get_name();
 	abstract public function get_version();
+	abstract public function get_required_version();
 
 	abstract public function is_packagist();
 

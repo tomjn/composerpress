@@ -71,8 +71,9 @@ class Model {
 		$reference = $plugin->get_reference();
 		$reponame = $plugin->get_name();
 		$version = $plugin->get_version();
+		$required_version = $plugin->get_required_version();
 		if ( empty( $version ) ) {
-			$version = 'dev-master';
+			$required_version = 'dev-master';
 		}
 		$vcstype = $plugin->get_vcs_type();
 
@@ -83,7 +84,7 @@ class Model {
 				}
 				$this->add_repository( $vcstype, $remote_url );
 				if ( !empty( $version ) ) {
-					$version = '>='.$version;
+					$version = $required_version;
 				}
 				$this->required( $reponame, $version );
 			} else {
@@ -128,6 +129,7 @@ class Model {
 		if ( !empty( $this->required ) ) {
 			$manifest['require'] = $this->required;
 		}
+		$manifest['minimum-stability'] = 'dev';
 		$json = json_encode( $manifest, ( JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) );
 		return $json;
 	}
