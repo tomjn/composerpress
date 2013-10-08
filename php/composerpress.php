@@ -16,7 +16,7 @@ class ComposerPress {
 	public function fill_model() {
 		$plugins = get_plugins();
 
-		$this->model->required( 'johnpbloch/wordpress', '>='.get_bloginfo( 'version' ) );
+		$this->model->required( 'johnpbloch/wordpress', '*@stable' );
 		$this->model->required( 'php', '>=5.3.2' );
 
 		$this->model->set_name( 'wpsite/'.sanitize_title( get_bloginfo( 'name' ) ) );
