@@ -39,6 +39,8 @@ class GitPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 		if ( $this->has_composer() ) {
 			$composer = $this->get_composer();
 			if ( !empty( $composer->version ) ) {
+				if (  is_numeric( $composer->version ) )
+					return '~'.$composer->version;
 				return $composer->version;
 			}
 		}

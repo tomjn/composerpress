@@ -44,11 +44,16 @@ class Model {
 		$this->license = $license;
 	}
 
-	public function add_repository( $type, $url ) {
-		$this->repos[] = array(
+	public function add_repository( $type, $url, $reference = '' ) {
+		$source = array(
 			'type' => $type,
-			'url' => $url
+			'url' => $url.$reference
 		);
+
+		/*if ( !empty( $reference ) ) {
+			$source['reference'] = trailingslashit( $reference );
+		}*/
+		$this->repos[] = $source;
 	}
 
 	public function add_package_repository( $package ) {
@@ -79,26 +84,23 @@ class Model {
 
 		if ( !$plugin->is_packagist() ) {
 			if ( $plugin->has_composer() ) {
-				if ( !empty( $reference ) ) {
-					$remote_url .= $reference;
-				}
-				$this->add_repository( $vcstype, $remote_url );
+				$this->add_repository( $vcstype, $remote_url, $reference );
 				if ( !empty( $version ) ) {
 					$version = $required_version;
 				}
 				$this->required( $reponame, $version );
 			} else {
+				$source = array(
+					'url' => $remote_url,
+					'type' => $vcstype
+				);
+				$source['reference'] = $reference;
 				$package = array(
 					'name' => $reponame,
 					'version' => 'dev-master',
 					'type' => 'wordpress-plugin',
-					'source' => array(
-						'url' => $remote_url,
-						'type' => $vcstype,
-						'reference' => $reference
-					)
+					'source' => $source
 				);
-
 				$this->add_package_repository( $package );
 				$this->required( $reponame, 'dev-master' );
 			}
