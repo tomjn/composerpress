@@ -64,9 +64,9 @@ class SVNPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 		$sql = 'SELECT * FROM NODES WHERE local_relpath = "'.$key.'" ORDER BY wc_id';
 		foreach ( $database->query( $sql ) as $row ) {
 			$rel = $row['repos_path'];
+			break;
 		}
 
-		//$info = \svn_info( $this->path );
-		return $rel;
+		return dirname( $rel );
 	}
 }

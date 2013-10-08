@@ -78,6 +78,9 @@ class Model {
 
 		if ( !$plugin->is_packagist() ) {
 			if ( $plugin->has_composer() ) {
+				if ( !empty( $reference ) ) {
+					$remote_url .= $reference;
+				}
 				$this->add_repository( $vcstype, $remote_url );
 				if ( !empty( $version ) ) {
 					$version = '>='.$version;
@@ -86,7 +89,7 @@ class Model {
 			} else {
 				$package = array(
 					'name' => $reponame,
-					'version' => $version,
+					'version' => 'dev-master',
 					'type' => 'wordpress-plugin',
 					'source' => array(
 						'url' => $remote_url,
