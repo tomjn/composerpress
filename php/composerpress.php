@@ -29,6 +29,9 @@ class ComposerPress {
 		$this->model->add_repository( 'composer', 'http://wpackagist.org' );
 
 		foreach ( $plugins as $key => $plugin_data ) {
+			if ( !is_plugin_active( $key ) ) {
+				continue;
+			}
 			$path = plugin_dir_path( $key );
 			$fullpath = WP_CONTENT_DIR.'/plugins/'.$path;
 			$filepath = WP_CONTENT_DIR.'/plugins/'.$key;
