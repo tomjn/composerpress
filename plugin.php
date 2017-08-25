@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Composerpress
-Plugin URI: http://tomjn.com
+Plugin URI: https://tomjn.com
 Description: Takes an inventory of plugins and themes installed and generates composer.json data
 Author: Tom J Nowell
 Version: 1.0
