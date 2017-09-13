@@ -13,7 +13,17 @@ abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInte
 		$this->plugin_data = $plugin_data;
 	}
 
-	abstract public function get_name();
+	public function get_name() {
+		$reponame = 'composerpress/'.sanitize_title( $this->plugin_data['Name'] );
+		if ( $this->has_composer() ) {
+			$composer = $this->get_composer();
+			if ( !empty( $composer->name ) ) {
+				return $composer->name;
+			}
+		}
+		return $reponame;
+	}
+
 	abstract public function get_version();
 	abstract public function get_required_version();
 
