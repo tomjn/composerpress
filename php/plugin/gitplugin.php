@@ -12,17 +12,6 @@ class GitPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 		$this->repository = new Repository( $this->path );
 	}
 
-	public function get_name() {
-		$reponame = 'composerpress/'.sanitize_title( $this->plugin_data['Name'] );
-		if ( $this->has_composer() ) {
-			$composer = $this->get_composer();
-			if ( !empty( $composer->name ) ) {
-				return $composer->name;
-			}
-		}
-		return $reponame;
-	}
-
 	public function get_version() {
 		$version = $this->plugin_data['Version'];
 		if ( $this->has_composer() ) {
