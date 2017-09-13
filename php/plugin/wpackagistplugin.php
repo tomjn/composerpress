@@ -50,6 +50,6 @@ class WPackagistPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 	}
 
 	public function get_url() {
-		return 'http://wpackagist.org';
+		return 'https://wpackagist.org';
 	}
 }
