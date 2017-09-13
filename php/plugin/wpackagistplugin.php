@@ -8,17 +8,6 @@ class WPackagistPlugin extends \Tomjn\ComposerPress\Plugin\WordpressPlugin {
 		parent::__construct( $path, $filepath, $plugin_data );
 	}
 
-	public function get_name() {
-		$reponame = 'wpackagist-plugin/'.sanitize_title( $this->plugin_data['Name'] );
-		if ( $this->has_composer() ) {
-			$composer = $this->get_composer();
-			if ( !empty( $composer->name ) ) {
-				return $composer->name;
-			}
-		}
-		return $reponame;
-	}
-
 	public function get_version() {
 		$version = $this->plugin_data['Version'];
 		if ( $this->has_composer() ) {
