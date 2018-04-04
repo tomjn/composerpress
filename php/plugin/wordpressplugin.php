@@ -14,7 +14,7 @@ abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInte
 	}
 
 	public function get_name() {
-		$reponame = 'composerpress/'.sanitize_title( $this->plugin_data['Name'] );
+		$reponame = 'composerpress/'.sanitize_title( basename($this->path) );
 		if ( $this->has_composer() ) {
 			$composer = $this->get_composer();
 			if ( !empty( $composer->name ) ) {
