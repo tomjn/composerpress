@@ -5,11 +5,11 @@ Retroactively creates a composer.json for a WordPress site. On activation, a com
 
 Includes support for composer packages via:
 
- - packagist
- - wpackagist
- - private mercurial repositories
- - private git repositories
- - private svn repositories
+ - [packagist](https://packagist.org/)
+ - [wpackagist](https://wpackagist.org/)
+ - private [mercurial](https://en.wikipedia.org/wiki/Mercurial) repositories
+ - private [git](https://en.wikipedia.org/wiki/Git) repositories
+ - private [svn](https://en.wikipedia.org/wiki/Apache_Subversion) repositories
  - non-composer plugins residing in git/svn/mercurial repositories
 
 ---
