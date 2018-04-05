@@ -37,6 +37,8 @@ Currently ComposerPress does not perform any control towards wpackagist [#2](htt
 
 3. You can always give an help and contribute... :smile:
 
+---
+
 ##### Author articles
 
 - <sub>[ComposerPress "Brief"](https://tomjn.com/2013/10/01/composerpress/)</sub>
