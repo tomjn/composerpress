@@ -24,3 +24,21 @@ Install as a regular plugin and then run <code>composer install</code> on the <c
 - <sub>[ComposerPress "Brief"](https://tomjn.com/2013/10/01/composerpress/)</sub>
 - <sub>[Wordpress & Composer TLDR](https://tomjn.com/2015/09/03/wordpress-and-composer-tldr/)</sub>
 - <sub>[ComposerPress "Project"](https://tomjn.com/projects/composerpress/)</sub>
+
+---
+
+## TODOs:
+Currently ComposerPress does not perform any control towards wpackagist https://github.com/tomjn/composerpress/issues/2 (or similaries), leaving open these problems:
+- when a _TextDomain_ doesn't match a _Plugins Name_
+- when a plugin doesn't match its _Folder Name_
+- when a _Plugin is Custom to a site_ (ie doesn't exist in the wp.org repo)
+
+---
+
+### Keep in mind
+
+1. At present, if composerpress can not find the source of a plugin, the choice will fall back on the defualt "composerpress" (to help you recognize them and act accordingly)
+
+2. if you encounter a false positive try to contact plugin's author  and ask him to insert, at least, a `Plugin URI:` in the header of the plugin; for example: these two plugins could collide if a URI plugin was not specified
+  - `Plugin URI: http://wordpress.org/extend/plugins/wp-less/` that will become something like **_composerpress/wp-less_**
+ - `Plugin URI: https://github.com/sanchothefat/wp-less/` that will become something like **_sanchothefat/wp-less_**
