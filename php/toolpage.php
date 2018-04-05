@@ -94,6 +94,9 @@ class ToolPage {
 		echo '<h2>Composer.json</h2>';
 		echo '<style>.composerpress_json { padding:1em; background:#fff; border: 1px solid #ddd; }</style>';
 
+    // Readme.md link reminder
+    echo '<sub>Visit <a href="https://github.com/tomjn/composerpress" target="_blank">github.com/tomjn/composerpress</a> for more detailed information</sub>';
+
     // Prints composer.json
 		echo '<pre class="composerpress_json">';
 		echo $this->model->to_json();
