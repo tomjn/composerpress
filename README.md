@@ -15,7 +15,7 @@ Includes support for composer packages via:
 ---
 
 ### Installation Notes
-Install as a regular plugin and then run <code>composer install</code> on the <code>wp-content/plugins/composerpress'</code> plugin folder to install dependencies.</p><p>For instructions on installing composer:</p><ul><li><a href="http://getcomposer.org/doc/00-intro.md#installation-nix"> see here for *nix</a></li><li><a href="http://getcomposer.org/doc/00-intro.md#installation-windows">here for Windows</a></li></ul>
+Install as a regular plugin and then run <code>composer install</code> on the <code>wp-content/plugins/composerpress'</code> plugin folder to install dependencies.</p><p>For instructions on installing composer: <a href="http://getcomposer.org/doc/00-intro.md#installation-nix"> see here for *nix</a> and <a href="http://getcomposer.org/doc/00-intro.md#installation-windows">here for Windows</a></p>
 
 ---
 
