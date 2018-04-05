@@ -29,7 +29,7 @@ Currently ComposerPress does not perform any control towards wpackagist [#2](htt
 
 ### Keep in mind
 
-1. At present, if composerpress can not find the source of a plugin, the choice will fall back on the defualt "composerpress" (to help you recognize them and act accordingly)
+1. At present, if composerpress can not find the source of a plugin, the choice will fall back on the default "composerpress" (to help you recognize them and act accordingly)
 
 2. If you encounter a false positive try to contact plugin's author  and ask him to insert, at least, a `Plugin URI:` in the header of the plugin; for example: these two plugins could collide if a URI plugin was not specified
   - `Plugin URI: http://wordpress.org/extend/plugins/wp-less/` that will become something like **_composerpress/wp-less_**
