@@ -10,7 +10,7 @@ use \Tomjn\ComposerPress\Plugin\WPackagistPlugin;
 class ComposerPress {
 
 	private $model = null;
-  const DEFAULT_FALLBACK_VENDOR = 'composerpress';
+	const DEFAULT_FALLBACK_VENDOR = 'composerpress';
 
 	public function __construct( Model $model ) {
 		$this->model = $model;
@@ -58,16 +58,16 @@ class ComposerPress {
 		}
 	}
 
-  /**
-   * Retrieve a setting.
-   *
-   * @param string $key Setting name.
-   * @param mixed $default Optional. Default setting value.
-   * @return mixed
-   */
-  public static function get_setting( $key, $default = false ) {
-    $option = get_option( 'composerpress' );
-    return (isset( $option[ $key ] ) && strlen($option[ $key ]) > 0) ? $option[ $key ] : $default;
-  }
+	/**
+	 * Retrieve a setting.
+	 *
+	 * @param string $key Setting name.
+	 * @param mixed $default Optional. Default setting value.
+	 * @return mixed
+	 */
+	public static function get_setting( $key, $default = false ) {
+		$option = get_option( 'composerpress' );
+		return (isset( $option[ $key ] ) && strlen($option[ $key ]) > 0) ? $option[ $key ] : $default;
+	}
 
 }

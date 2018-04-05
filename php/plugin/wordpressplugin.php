@@ -17,8 +17,8 @@ abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInte
 
 	public function get_name() {
 
-    $namespace = ComposerPress::get_setting('vendor', ComposerPress::DEFAULT_FALLBACK_VENDOR );
-    $package = basename($this->path);
+		$namespace = ComposerPress::get_setting('vendor', ComposerPress::DEFAULT_FALLBACK_VENDOR );
+		$package = basename($this->path);
 
 		$reponame = sanitize_title($namespace).'/'.sanitize_title($package);
 		if ( $this->has_composer() ) {
