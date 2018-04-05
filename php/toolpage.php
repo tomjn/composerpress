@@ -117,35 +117,31 @@ class ToolPage {
 		/**
 		 * Originally taken from: https://stackoverflow.com/questions/42266658/download-text-from-html-pre-tag
 		 */
-		function saveTextAsFile()
-			 {
-					 var textToWrite = document.querySelector('pre.composerpress_json').innerText;
-					 var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-					 var fileNameToSaveAs = "composer.json";
+		function saveTextAsFile() {
+			var textToWrite = document.querySelector('pre.composerpress_json').innerText;
+			var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+			var fileNameToSaveAs = "composer.json";
 
-					 var downloadLink = document.createElement("a");
-					 downloadLink.download = fileNameToSaveAs;
-					 downloadLink.innerHTML = "Download File";
-					 if (window.webkitURL != null)
-					 {
-							 // Chrome allows the link to be clicked without actually adding it to the DOM.
-							 downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-					 }
-					 else
-					 {
-							 // Firefox requires the link to be added to the DOM before it can be clicked.
-							 downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-							 downloadLink.onclick = function(){
-								 document.body.removeChild(downloadLink);
-							 };
-							 downloadLink.style.display = "none";
-							 document.body.appendChild(downloadLink);
-					 }
-					 downloadLink.click();
-			 }
+			var downloadLink = document.createElement("a");
+			downloadLink.download = fileNameToSaveAs;
+			downloadLink.innerHTML = "Download File";
+			if (window.webkitURL != null) {
+				// Chrome allows the link to be clicked without actually adding it to the DOM.
+				downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+			} else {
+				// Firefox requires the link to be added to the DOM before it can be clicked.
+				downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+				downloadLink.onclick = function(){
+					document.body.removeChild(downloadLink);
+				};
+				downloadLink.style.display = "none";
+				document.body.appendChild(downloadLink);
+			}
+			downloadLink.click();
+		}
 
-			 var button = document.getElementById('download');
-			 button.addEventListener('click', saveTextAsFile);
+		var button = document.getElementById('download');
+		button.addEventListener('click', saveTextAsFile);
 
 		</script>
 		<?php
