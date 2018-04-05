@@ -12,7 +12,7 @@ class ToolPage {
 		$this->model = $model;
 
 		add_action( 'admin_menu', array( $this, 'on_admin_menu' ) );
-    add_action( 'admin_init', array( $this, 'on_admin_init' ) );
+		add_action( 'admin_init', array( $this, 'on_admin_init' ) );
 	}
 
 
