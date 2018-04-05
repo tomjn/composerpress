@@ -21,9 +21,9 @@ Install as a regular plugin and then run <code>composer install</code> on the <c
 
 ## TODOs:
 Currently ComposerPress does not perform any control towards wpackagist [#2](https://github.com/tomjn/composerpress/issues/2) (or similaries), leaving open these problems:
-- when a _TextDomain_ doesn't match a _Plugins Name_
-- when a plugin doesn't match its _Folder Name_
-- when a _Plugin is Custom to a site_ (ie doesn't exist in the wp.org repo)
+- when a _TextDomain_ doesn't match a _Plugins Name_ ?
+- when a plugin doesn't match its _Folder Name_ ?
+- when a _Plugin is Custom to a site_ (ie doesn't exist in the wp.org repo) ?
 
 ---
 
