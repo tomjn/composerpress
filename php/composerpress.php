@@ -10,7 +10,7 @@ use \Tomjn\ComposerPress\Plugin\WPackagistPlugin;
 class ComposerPress {
 
 	private $model = null;
-  const DEFAULT_VENDOR = 'composerpress';
+  const DEFAULT_FALLBACK_VENDOR = 'composerpress';
 
 	public function __construct( Model $model ) {
 		$this->model = $model;
