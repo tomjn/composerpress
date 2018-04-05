@@ -99,6 +99,8 @@ class ToolPage {
 		echo $this->model->to_json();
 		echo '</pre>';
 
+    echo '<button type="button" value="download" id="download" class="button button-secondary" style="width: 100%;">Download</button>';
+
     // Prints Settings Form
     echo '<form action="options.php" method="post">';
     settings_fields( 'composerpress' );
@@ -107,5 +109,42 @@ class ToolPage {
     echo '</form>';
 
 		echo '</div>';
+    ?>
+    <script>
+    /**
+     * Originally taken from: https://stackoverflow.com/questions/42266658/download-text-from-html-pre-tag
+     */
+    function saveTextAsFile()
+       {
+           var textToWrite = document.querySelector('pre.composerpress_json').innerText;
+           var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+           var fileNameToSaveAs = "composer.json";
+
+           var downloadLink = document.createElement("a");
+           downloadLink.download = fileNameToSaveAs;
+           downloadLink.innerHTML = "Download File";
+           if (window.webkitURL != null)
+           {
+               // Chrome allows the link to be clicked without actually adding it to the DOM.
+               downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+           }
+           else
+           {
+               // Firefox requires the link to be added to the DOM before it can be clicked.
+               downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+               downloadLink.onclick = function(){
+                 document.body.removeChild(downloadLink);
+               };
+               downloadLink.style.display = "none";
+               document.body.appendChild(downloadLink);
+           }
+           downloadLink.click();
+       }
+
+       var button = document.getElementById('download');
+       button.addEventListener('click', saveTextAsFile);
+
+    </script>
+    <?php
 	}
 }
