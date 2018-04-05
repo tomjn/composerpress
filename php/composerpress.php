@@ -2,9 +2,16 @@
 
 namespace Tomjn\ComposerPress;
 
+use \Tomjn\ComposerPress\Plugin\HGPlugin;
+use \Tomjn\ComposerPress\Plugin\GitPlugin;
+use \Tomjn\ComposerPress\Plugin\SVNPlugin;
+use \Tomjn\ComposerPress\Plugin\WPackagistPlugin;
+
 class ComposerPress {
 
 	private $model = null;
+	const DEFAULT_FALLBACK_VENDOR = 'composerpress';
+
 	public function __construct( Model $model ) {
 		$this->model = $model;
 	}
@@ -37,21 +44,30 @@ class ComposerPress {
 			$filepath = WP_CONTENT_DIR.'/plugins/'.$key;
 			$plugin = null;
 			if ( file_exists( $fullpath.'.hg/' ) ) {
-				$plugin = new \Tomjn\ComposerPress\Plugin\HGPlugin( $fullpath, $filepath, $plugin_data );
+				$plugin = new HGPlugin( $fullpath, $filepath, $plugin_data );
 			} else if ( file_exists( $fullpath.'.git/' ) ) {
-				$plugin = new \Tomjn\ComposerPress\Plugin\GitPlugin( $fullpath, $filepath, $plugin_data );
+				$plugin = new GitPlugin( $fullpath, $filepath, $plugin_data );
 			} else if ( file_exists( $fullpath.'.svn/' ) ) {
-				$plugin = new \Tomjn\ComposerPress\Plugin\SVNPlugin( $fullpath, $filepath, $plugin_data );
+				$plugin = new SVNPlugin( $fullpath, $filepath, $plugin_data );
 			} else {
-				$plugin = new \Tomjn\ComposerPress\Plugin\WPackagistPlugin( $fullpath, $filepath, $plugin_data );
+				$plugin = new WPackagistPlugin( $fullpath, $filepath, $plugin_data );
 			}
 			if ( $plugin != null ) {
 				$this->model->add_plugin( $plugin );
 			}
 		}
 	}
+
+	/**
+	 * Retrieve a setting.
+	 *
+	 * @param string $key Setting name.
+	 * @param mixed $default Optional. Default setting value.
+	 * @return mixed
+	 */
+	public static function get_setting( $key, $default = false ) {
+		$option = get_option( 'composerpress' );
+		return (isset( $option[ $key ] ) && strlen($option[ $key ]) > 0) ? $option[ $key ] : $default;
+	}
+
 }
-
-
-
-

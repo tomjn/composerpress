@@ -2,6 +2,8 @@
 
 namespace Tomjn\ComposerPress\Plugin;
 
+use \Tomjn\ComposerPress\ComposerPress;
+
 abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInterface {
 	protected $path;
 	protected $filepath;
@@ -14,7 +16,11 @@ abstract class WordpressPlugin implements \Tomjn\ComposerPress\Plugin\PluginInte
 	}
 
 	public function get_name() {
-		$reponame = 'composerpress/'.sanitize_title( $this->plugin_data['Name'] );
+
+		$namespace = ComposerPress::get_setting('vendor', ComposerPress::DEFAULT_FALLBACK_VENDOR );
+		$package = basename($this->path);
+
+		$reponame = sanitize_title($namespace).'/'.sanitize_title($package);
 		if ( $this->has_composer() ) {
 			$composer = $this->get_composer();
 			if ( !empty( $composer->name ) ) {
