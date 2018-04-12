@@ -64,7 +64,7 @@ class ToolPage {
 	 * Display a field for defining the vendor.
 	 */
 	public function render_field_vendor() {
-		$value = 	$this->composerpress::get_setting( 'vendor', '' );
+		$value = 	$this->composerpress->get_setting( 'vendor', '' );
 		?>
 		<p>
 			<input type="text" name="composerpress[vendor]" id="composerpress-vendor" value="<?php echo esc_attr( $value ); ?>"><br>
