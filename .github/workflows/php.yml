@@ -21,14 +21,19 @@ jobs:
     - name: Lint PHP Files ( 8 threads )
       run: find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
 
-    - name: Test hashfiles
-      run: echo "${{hashFiles('composer.lock')}}"
+#    - name: Cache composer dependencies
+#      uses: actions/cache@v1
+#      with:
+#        path: vendor
+#        key: composer-${{ hashFiles('composer.lock') }}
 
-    - name: Cache composer dependencies
-      uses: actions/cache@v1
-      with:
-        path: vendor
-        key: composer-${{ hashFiles('composer.lock') }}
+    - name: test exists
+      if: ${{hashFiles('composer.json')}}
+      run: echo "composer.json exists"
+
+    - name: test does not exists
+      if: ${{hashFiles('banana.json')}}
+      run: echo "banana.json exists"
 
     - name: Validate composer.json and composer.lock
       run: ls composer.json > /dev/null && composer validate
