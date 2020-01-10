@@ -21,5 +21,17 @@ jobs:
     - name: Lint PHP Files ( 8 threads )
       run: find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
 
+    - name: Cache composer dependencies
+      uses: actions/cache@v1
+      with:
+        path: vendor
+        key: composer-${{ hashFiles('composer.lock') }}
+
     - name: Validate composer.json and composer.lock
       run: ls composer.json > /dev/null && composer validate
+
+    - name: Composer Install
+      run: ls composer.json > /dev/null && composer install
+
+    - name: Run PHPUnit tests
+      run: ls vendor/bin/phpunit > /dev/null && ./vendor/bin/phpunit
