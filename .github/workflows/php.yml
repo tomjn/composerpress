@@ -1,0 +1,23 @@
+name: PHP Linting
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: PHP Version
+      run: php --version
+
+    - name: Lint PHP Files
+      run: find . -name "*.php" -print0 | xargs -0 -n1 php -l
+
+#    - name: Lint PHP Files ( 8 threads )
+#      run: find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+
+    - name: Validate composer.json and composer.lock
+      run: ls composer.json && composer validate
