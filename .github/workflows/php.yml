@@ -28,11 +28,11 @@ jobs:
 #        key: composer-${{ hashFiles('composer.lock') }}
 
     - name: test exists
-      if: ${{hashFiles('composer.json')}}
+      if: hashFiles('composer.json')
       run: echo "composer.json exists"
 
     - name: test does not exists
-      if: ${{hashFiles('banana.json')}}
+      if: hashFiles('banana.json')
       run: echo "banana.json exists"
 
     - name: Validate composer.json and composer.lock
