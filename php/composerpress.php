@@ -7,8 +7,6 @@ use \Tomjn\ComposerPress\Plugin\GitPlugin;
 use \Tomjn\ComposerPress\Plugin\SVNPlugin;
 use \Tomjn\ComposerPress\Plugin\WPackagistPlugin;
 
-deliberate syntax error
-
 class ComposerPress {
 
 	private $model = null;
