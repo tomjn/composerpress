@@ -3,7 +3,6 @@
     "description": "Takes stock of a local install and generates a composer.json",
     "license": "GPL-2.0+",
     "type": "wordpress-plugin",
-    "version": "an invalid version",
     "authors": [
         {
             "name": "Tom J Nowell",
