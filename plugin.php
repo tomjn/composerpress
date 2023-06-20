@@ -4,8 +4,8 @@ Plugin Name: Composerpress
 Plugin URI: https://tomjn.com
 Description: Takes an inventory of plugins and themes installed and generates composer.json data
 Author: Tom J Nowell
-Version: 1.0
-Author URI: http://www.tomjn.com/
+Version: 1.0.1
+Author URI: https://www.tomjn.com/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
