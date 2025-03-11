@@ -18,6 +18,11 @@
         "symfony/console": "^2.3.5",
         "composer/composer": "*"
     },
+    "config": {
+		"allow-plugins": {
+			"composer/installers": true
+        }
+    },
     "autoload"    : {
         "classmap": [
             "php/"
