@@ -3,7 +3,6 @@
     "description": "Takes stock of a local install and generates a composer.json",
     "license": "GPL-2.0+",
     "type": "wordpress-plugin",
-    "version": "dev-master",
     "authors": [
         {
             "name": "Tom J Nowell",
@@ -12,12 +11,17 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "composer/installers": "~1.0",
-        "php": ">=5.3",
+        "composer/installers": "^1.0 || ^2.0",
+        "php": ">=7.4",
         "ext-pdo": "*",
-        "gitonomy/gitlib": "dev-master",
-        "symfony/console": "2.3.5",
+        "gitonomy/gitlib": "dev-main",
+        "symfony/console": "^2.3.5",
         "composer/composer": "*"
+    },
+    "config": {
+		"allow-plugins": {
+			"composer/installers": true
+        }
     },
     "autoload"    : {
         "classmap": [
