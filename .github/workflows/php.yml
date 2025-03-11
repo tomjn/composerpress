@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [7.3, 7.4]
+        php: [7.4, 8.1, 8.2]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: PHP Version
       run: php --version
@@ -20,13 +20,6 @@ jobs:
 
     - name: Lint PHP Files ( 8 threads )
       run: find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
-
-#    - name: Cache composer dependencies
-#      uses: actions/cache@v1
-#      with:
-#        path: vendor
-#        key: composer-${{ hashFiles('composer.lock') }}
-
 
     - name: Validate composer.json and composer.lock
       run: ls composer.json > /dev/null && composer validate
