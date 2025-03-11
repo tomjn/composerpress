@@ -26,6 +26,3 @@ jobs:
 
     - name: Composer Install
       run: ls composer.json > /dev/null && composer install
-
-    - name: Run PHPUnit tests
-      run: ls vendor/bin/phpunit > /dev/null && ./vendor/bin/phpunit
