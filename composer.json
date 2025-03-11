@@ -11,11 +11,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "composer/installers": "~1.0",
-        "php": ">=5.3",
+        "composer/installers": "^1.0 || ^2.0",
+        "php": ">=7.4",
         "ext-pdo": "*",
         "gitonomy/gitlib": "dev-master",
-        "symfony/console": "2.3.5",
+        "symfony/console": "^2.3.5",
         "composer/composer": "*"
     },
     "autoload"    : {
